@@ -96,13 +96,16 @@ exports.getPostComments = async (postId) => {
   });
 };
 
-exports.createComment = async (content, postId) => {
+exports.createComment = async (content, postId, userId) => {
   return await prisma.comment.create({
     data: {
       content: content,
-    },
-    post: {
-      connect: { id: parseInt(postId) },
+      post: {
+        connect: { id: parseInt(postId) },
+      },
+      author: {
+        connect: { id: parseInt(userId) },
+      },
     },
   });
 };

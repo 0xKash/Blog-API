@@ -1,5 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const prisma = require("../db/queries");
+const CustomNotFoundError = require("../errors/CustomNotFoundError");
 
 exports.getAllPosts = asyncHandler(async (req, res) => {
   const posts = await prisma.getAllPosts();
@@ -9,6 +10,8 @@ exports.getAllPosts = asyncHandler(async (req, res) => {
 
 exports.getPost = asyncHandler(async (req, res) => {
   const post = await prisma.getPost(req.params.postId);
+
+  if (!post) throw new CustomNotFoundError("Post not found");
 
   res.json(post);
 });
@@ -22,6 +25,8 @@ exports.createPost = asyncHandler(async (req, res) => {
 exports.deletePost = asyncHandler(async (req, res) => {
   const post = await prisma.deletePost(req.params.postId);
 
+  if (!post) throw new CustomNotFoundError("Post not found");
+
   res.json(post);
 });
 
@@ -32,7 +37,11 @@ exports.getPostComments = asyncHandler(async (req, res) => {
 });
 
 exports.createComment = asyncHandler(async (req, res) => {
-  const comment = prisma.createComment(req.body.content, req.params.postId);
+  const comment = prisma.createComment(
+    req.body.content,
+    req.params.postId,
+    req.body.userId /* ONLY FOR TESTING */
+  );
 
   res.json(comment);
 });
