@@ -1,18 +1,17 @@
 require("dotenv").config();
 const express = require("express");
-const session = require("express-session");
-
-const path = require("node:path");
+const userRouter = require("./routers/userRouter");
+const postRouter = require("./routers/postRouter");
 
 //
 
 const app = express();
 
+app.use(express.json());
 app.set(express.urlencoded({ extended: true }));
 
-app.get("/users", (req, res) => {
-  res.send("ok");
-});
+app.use("/users", userRouter);
+app.use("/posts", postRouter);
 
 app.listen(process.env.PORT, (req, res) =>
   console.log(`Listening on PORT: ${process.env.PORT}`)
