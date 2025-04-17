@@ -13,7 +13,7 @@ exports.getPost = asyncHandler(async (req, res) => {
   res.json(post);
 });
 
-exports.postPost = asyncHandler(async (req, res) => {
+exports.createPost = asyncHandler(async (req, res) => {
   const post = await prisma.createPost(req.body.title, req.body.content);
 
   res.json(post);
@@ -23,4 +23,16 @@ exports.deletePost = asyncHandler(async (req, res) => {
   const post = await prisma.deletePost(req.params.postId);
 
   res.json(post);
+});
+
+exports.getPostComments = asyncHandler(async (req, res) => {
+  const comments = await prisma.getPostComments(req.params.postId);
+
+  res.json(comments);
+});
+
+exports.createComment = asyncHandler(async (req, res) => {
+  const comment = prisma.createComment(req.body.content, req.params.postId);
+
+  res.json(comment);
 });

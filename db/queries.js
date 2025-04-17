@@ -1,4 +1,5 @@
 const { PrismaClient } = require("@prisma/client");
+const { connect } = require("../routers/userRouter");
 const prisma = new PrismaClient();
 
 //
@@ -73,6 +74,35 @@ exports.getComment = async (commentId) => {
   return await prisma.comment.findUnique({
     where: {
       id: parseInt(commentId),
+    },
+  });
+};
+
+exports.deleteComment = async (commentId) => {
+  return await prisma.comment.delete({
+    where: {
+      id: parseInt(commentId),
+    },
+  });
+};
+
+//
+
+exports.getPostComments = async (postId) => {
+  return await prisma.comment.findMany({
+    where: {
+      postId: parseInt(postId),
+    },
+  });
+};
+
+exports.createComment = async (content, postId) => {
+  return await prisma.comment.create({
+    data: {
+      content: content,
+    },
+    post: {
+      connect: { id: parseInt(postId) },
     },
   });
 };

@@ -1,13 +1,17 @@
 const { Router } = require("express");
+const {
+  getAllComments,
+  getComment,
+  deleteComment,
+} = require("../controllers/commentController");
 
 //
 
 const commentRouter = Router();
 
-commentRouter.get("/");
-commentRouter.post("/");
+commentRouter.get("/", getAllComments);
 
-commentRouter.get("/:postId");
-commentRouter.delete("/:postId");
+commentRouter.get("/:commentId", getComment);
+commentRouter.delete("/:commentId", deleteComment);
 
 module.exports = commentRouter;
