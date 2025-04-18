@@ -1,5 +1,4 @@
 const { PrismaClient } = require("@prisma/client");
-const { connect } = require("../routers/userRouter");
 const prisma = new PrismaClient();
 
 //
@@ -92,6 +91,14 @@ exports.getPostComments = async (postId) => {
   return await prisma.comment.findMany({
     where: {
       postId: parseInt(postId),
+    },
+  });
+};
+
+exports.getUserComments = async (userId) => {
+  return await prisma.comment.findMany({
+    where: {
+      authorId: parseInt(userId),
     },
   });
 };
