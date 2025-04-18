@@ -11,7 +11,13 @@ exports.getAllPosts = asyncHandler(async (req, res) => {
 exports.getPost = asyncHandler(async (req, res) => {
   const post = await prisma.getPost(req.params.postId);
 
-  if (!post) throw new CustomNotFoundError("Post not found");
+  if (!post)
+    throw new CustomNotFoundError(
+      "Post not found",
+      `The post with the ID ${req.params.postId} does not exist`,
+      "Please check if the ID is correct",
+      req.originalUrl
+    );
 
   res.json(post);
 });
@@ -25,7 +31,13 @@ exports.createPost = asyncHandler(async (req, res) => {
 exports.deletePost = asyncHandler(async (req, res) => {
   const post = await prisma.deletePost(req.params.postId);
 
-  if (!post) throw new CustomNotFoundError("Post not found");
+  if (!post)
+    throw new CustomNotFoundError(
+      "Post not found",
+      `The post with the ID ${req.params.postId} does not exist`,
+      "Please check if the ID is correct",
+      req.originalUrl
+    );
 
   res.json(post);
 });

@@ -1,8 +1,13 @@
 class CustomInternalServerError extends Error {
-  constructor(message) {
+  constructor(message, details) {
     super(message);
+    this.status = "error";
     this.statusCode = 500;
-    this.name = "InternalServerError";
+    this.error = {
+      code: "INTERNAL_SERVER_ERROR",
+      message: message,
+      details: details,
+    };
   }
 }
 

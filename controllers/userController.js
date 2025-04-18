@@ -11,7 +11,13 @@ exports.getAllUsers = asyncHandler(async (req, res) => {
 exports.getUser = asyncHandler(async (req, res) => {
   const user = await prisma.getUser(req.params.userId);
 
-  if (!user) throw new CustomNotFoundError("User not found");
+  if (!user)
+    throw new CustomNotFoundError(
+      "User not found",
+      `The user with the ID ${req.params.userId} does not exist`,
+      "Please check if the user ID is correct",
+      req.originalUrl
+    );
 
   res.json(user);
 });
@@ -25,7 +31,13 @@ exports.postUser = asyncHandler(async (req, res) => {
 exports.deleteUser = asyncHandler(async (req, res) => {
   const user = await prisma.deleteUser(req.params.userId);
 
-  if (!user) throw new CustomNotFoundError("User not found");
+  if (!user)
+    throw new CustomNotFoundError(
+      "User not found",
+      `The user with the ID ${req.params.userId} does not exist`,
+      "Please check if the user ID is correct",
+      req.originalUrl
+    );
 
   res.json(user);
 });
