@@ -16,7 +16,7 @@ exports.getUser = asyncHandler(async (req, res) => {
   res.json(user);
 });
 
-exports.createUser = asyncHandler(async (req, res) => {
+exports.postUser = asyncHandler(async (req, res) => {
   const user = await prisma.createUser(req.body.username, req.body.password);
 
   res.json(user);
@@ -28,10 +28,4 @@ exports.deleteUser = asyncHandler(async (req, res) => {
   if (!user) throw new CustomNotFoundError("User not found");
 
   res.json(user);
-});
-
-exports.getUserComments = asyncHandler(async (req, res) => {
-  const comments = await prisma.getUserComments(req.params.userId);
-
-  res.json(comments);
 });

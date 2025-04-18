@@ -2,9 +2,8 @@ const { Router } = require("express");
 const {
   getAllUsers,
   getUser,
-  createUser,
+  postUser,
   deleteUser,
-  getUserComments,
 } = require("../controllers/userController");
 
 //
@@ -12,11 +11,9 @@ const {
 const userRouter = Router();
 
 userRouter.get("/", getAllUsers);
-userRouter.post("/", createUser);
+userRouter.post("/", postUser);
 
 userRouter.get("/:userId", getUser);
 userRouter.delete("/:userId", deleteUser);
-
-userRouter.get("/:userId/comments", getUserComments);
 
 module.exports = userRouter;
