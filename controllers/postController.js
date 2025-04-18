@@ -5,6 +5,14 @@ const CustomNotFoundError = require("../errors/CustomNotFoundError");
 exports.getAllPosts = asyncHandler(async (req, res) => {
   const posts = await prisma.getAllPosts();
 
+  if (posts.length === 0)
+    throw new CustomNotFoundError(
+      "Posts not found",
+      "No posts exist",
+      "Try to create a new post",
+      req.originalUrl
+    );
+
   res.json(posts);
 });
 
@@ -44,6 +52,14 @@ exports.deletePost = asyncHandler(async (req, res) => {
 
 exports.getPostComments = asyncHandler(async (req, res) => {
   const comments = await prisma.getPostComments(req.params.postId);
+
+  if (comments.length === 0)
+    throw new CustomNotFoundError(
+      "Comments not found",
+      "No comments exist",
+      `Try to create a new comment or check if a post with the ID ${req.params.postId} exists`,
+      req.originalUrl
+    );
 
   res.json(comments);
 });

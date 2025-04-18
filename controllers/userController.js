@@ -5,6 +5,14 @@ const prisma = require("../db/queries");
 exports.getAllUsers = asyncHandler(async (req, res) => {
   const users = await prisma.getAllUsers();
 
+  if (users.length === 0)
+    throw new CustomNotFoundError(
+      "Users not found",
+      "No users exist",
+      "Try to create a new user",
+      req.originalUrl
+    );
+
   res.json(users);
 });
 

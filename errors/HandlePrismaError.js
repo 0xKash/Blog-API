@@ -21,10 +21,7 @@ const handlePrismaError = (err) => {
         `Operation depends on one or more records not found ${err.meta.target}`
       );
     default:
-      throw new CustomInternalServerError(
-        "Something went wrong",
-        err.meta.target
-      );
+      throw new CustomInternalServerError("Something went wrong", err.meta);
   }
 };
 

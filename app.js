@@ -17,7 +17,6 @@ app.use("/posts", postRouter);
 app.use("/comments", commentRouter);
 
 app.use((err, req, res, next) => {
-  handlePrismaError(err);
   res.status(err.statusCode || 500).send(err);
 });
 
