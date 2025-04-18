@@ -17,7 +17,11 @@ exports.getAllPosts = asyncHandler(async (req, res) => {
 });
 
 exports.getPost = asyncHandler(async (req, res) => {
-  const post = await prisma.getPost(req.params.postId);
+  let post;
+
+  req.query.include === "comments"
+    ? (post = await prisma.getPostWithComments(req.params.postId))
+    : (post = await prisma.getPost(req.params.postId));
 
   if (!post)
     throw new CustomNotFoundError(

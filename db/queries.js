@@ -72,6 +72,21 @@ exports.getPost = async (postId) => {
   }
 };
 
+exports.getPostWithComments = async (postId) => {
+  try {
+    return await prisma.post.findUnique({
+      where: {
+        id: parseInt(postId),
+      },
+      include: {
+        comments: true,
+      },
+    });
+  } catch (err) {
+    handlePrismaError(err);
+  }
+};
+
 exports.createPost = async (title, content) => {
   try {
     return await prisma.post.create({
