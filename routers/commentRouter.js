@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const isAuth = require("../lib/authMiddlewares");
 const {
   getAllComments,
   getComment,
@@ -9,9 +10,9 @@ const {
 
 const commentRouter = Router();
 
-commentRouter.get("/", getAllComments);
+commentRouter.get("/", isAuth, getAllComments);
 
-commentRouter.get("/:commentId", getComment);
-commentRouter.delete("/:commentId", deleteComment);
+commentRouter.get("/:commentId", isAuth, getComment);
+commentRouter.delete("/:commentId", isAuth, deleteComment);
 
 module.exports = commentRouter;

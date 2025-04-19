@@ -1,4 +1,3 @@
-const passport = require("passport");
 const prisma = require("../db/queries");
 
 const fs = require("fs");

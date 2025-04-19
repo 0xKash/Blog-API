@@ -1,4 +1,4 @@
-const CustomInternalServerError = require("./CustomInternalServerError");
+const { CustomInternalServerError } = require("./errors");
 
 const handlePrismaError = (err) => {
   switch (err.code) {

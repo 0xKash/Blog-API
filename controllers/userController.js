@@ -1,9 +1,11 @@
-const CustomNotFoundError = require("../errors/CustomNotFoundError");
+const {
+  CustomNotAuthorizedError,
+  CustomNotFoundError,
+} = require("../errors/errors");
 const asyncHandler = require("express-async-handler");
 
 const prisma = require("../db/queries");
 const utils = require("../lib/utils");
-const CustomNotAuthorizedError = require("../errors/CustomNotAuthorizedError");
 
 exports.getAllUsers = asyncHandler(async (req, res) => {
   const users = await prisma.getAllUsers();

@@ -8,18 +8,19 @@ const {
   createComment,
   getPostComments,
 } = require("../controllers/postController");
+const isAuth = require("../lib/authMiddlewares");
 
 //
 
 const postRouter = Router();
 
-postRouter.get("/", getAllPosts);
-postRouter.post("/", createPost);
+postRouter.get("/", isAuth, getAllPosts);
+postRouter.post("/", isAuth, createPost);
 
-postRouter.get("/:postId", getPost);
-postRouter.delete("/:postId", deletePost);
+postRouter.get("/:postId", isAuth, getPost);
+postRouter.delete("/:postId", isAuth, deletePost);
 
-postRouter.get("/:postId/comments", getPostComments);
-postRouter.post("/:postId/comments", createComment);
+postRouter.get("/:postId/comments", isAuth, getPostComments);
+postRouter.post("/:postId/comments", isAuth, createComment);
 
 module.exports = postRouter;

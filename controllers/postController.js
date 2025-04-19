@@ -1,6 +1,6 @@
 const asyncHandler = require("express-async-handler");
 const prisma = require("../db/queries");
-const CustomNotFoundError = require("../errors/CustomNotFoundError");
+const { CustomNotFoundError } = require("../errors/errors");
 
 exports.getAllPosts = asyncHandler(async (req, res) => {
   const posts = await prisma.getAllPosts();
