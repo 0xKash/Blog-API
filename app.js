@@ -1,9 +1,12 @@
 require("dotenv").config();
 const express = require("express");
+const passport = require("passport");
+
+require("./config/passport")(passport);
+
 const userRouter = require("./routers/userRouter");
 const postRouter = require("./routers/postRouter");
 const commentRouter = require("./routers/commentRouter");
-const handlePrismaError = require("./errors/HandlePrismaError");
 
 //
 
@@ -12,11 +15,14 @@ const app = express();
 app.use(express.json());
 app.set(express.urlencoded({ extended: true }));
 
+app.use(passport.initialize());
+
 app.use("/users", userRouter);
 app.use("/posts", postRouter);
 app.use("/comments", commentRouter);
 
 app.use((err, req, res, next) => {
+  console.log(err);
   res.status(err.statusCode || 500).send(err);
 });
 

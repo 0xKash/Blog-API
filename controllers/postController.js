@@ -43,6 +43,8 @@ exports.createPost = asyncHandler(async (req, res) => {
 exports.deletePost = asyncHandler(async (req, res) => {
   const post = await prisma.deletePost(req.params.postId);
 
+  console.log(post);
+
   if (!post)
     throw new CustomNotFoundError(
       "Post not found",

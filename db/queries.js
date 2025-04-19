@@ -25,15 +25,47 @@ exports.getUser = async (userId) => {
   }
 };
 
-exports.createUser = async (username, password) => {
+exports.getUserByUsername = async (username) => {
+  try {
+    return await prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+    });
+  } catch (err) {
+    console.error(err);
+
+    handlePrismaError(err);
+  }
+};
+
+exports.getUserWithComments = async (userId) => {
+  try {
+    return await prisma.user.findUnique({
+      where: {
+        id: parseInt(userId),
+      },
+      include: {
+        comments: true,
+      },
+    });
+  } catch (err) {
+    handlePrismaError(err);
+  }
+};
+
+exports.createUser = async (username, hash, salt) => {
   try {
     return await prisma.user.create({
       data: {
         username: username,
-        password: password,
+        hash: hash,
+        salt: salt,
       },
     });
   } catch (err) {
+    console.error(err);
+
     handlePrismaError(err);
   }
 };
@@ -108,6 +140,7 @@ exports.deletePost = async (postId) => {
       },
     });
   } catch (err) {
+    console.log(err);
     handlePrismaError(err);
   }
 };
@@ -136,12 +169,15 @@ exports.getComment = async (commentId) => {
 
 exports.deleteComment = async (commentId) => {
   try {
+    console.log("ok");
     return await prisma.comment.delete({
       where: {
         id: parseInt(commentId),
       },
     });
   } catch (err) {
+    console.error(err);
+
     handlePrismaError(err);
   }
 };
