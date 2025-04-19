@@ -13,7 +13,7 @@ exports.getAllPosts = asyncHandler(async (req, res) => {
       req.originalUrl
     );
 
-  res.json(posts);
+  res.status(200).json({ status: "success", data: posts });
 });
 
 exports.getPost = asyncHandler(async (req, res) => {
@@ -31,19 +31,17 @@ exports.getPost = asyncHandler(async (req, res) => {
       req.originalUrl
     );
 
-  res.json(post);
+  res.status(200).json({ status: "success", data: post });
 });
 
 exports.createPost = asyncHandler(async (req, res) => {
   const post = await prisma.createPost(req.body.title, req.body.content);
 
-  res.json(post);
+  res.status(200).json({ status: "success", data: post });
 });
 
 exports.deletePost = asyncHandler(async (req, res) => {
   const post = await prisma.deletePost(req.params.postId);
-
-  console.log(post);
 
   if (!post)
     throw new CustomNotFoundError(
@@ -53,7 +51,7 @@ exports.deletePost = asyncHandler(async (req, res) => {
       req.originalUrl
     );
 
-  res.json(post);
+  res.status(200).json({ status: "success", data: post });
 });
 
 exports.getPostComments = asyncHandler(async (req, res) => {
@@ -67,7 +65,7 @@ exports.getPostComments = asyncHandler(async (req, res) => {
       req.originalUrl
     );
 
-  res.json(comments);
+  res.status(200).json({ status: "success", data: comments });
 });
 
 exports.createComment = asyncHandler(async (req, res) => {
@@ -77,5 +75,5 @@ exports.createComment = asyncHandler(async (req, res) => {
     req.body.userId /* ONLY FOR TESTING */
   );
 
-  res.json(comment);
+  res.status(200).json({ status: "success", data: comment });
 });

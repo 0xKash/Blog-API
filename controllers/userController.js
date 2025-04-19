@@ -16,7 +16,7 @@ exports.getAllUsers = asyncHandler(async (req, res) => {
       req.originalUrl
     );
 
-  res.json(users);
+  res.status(200).json({ status: "success", data: users });
 });
 
 exports.getUser = asyncHandler(async (req, res) => {
@@ -34,7 +34,7 @@ exports.getUser = asyncHandler(async (req, res) => {
       req.originalUrl
     );
 
-  res.json(user);
+  res.status(200).json({ status: "success", data: user });
 });
 
 exports.postUser = asyncHandler(async (req, res) => {
@@ -49,9 +49,11 @@ exports.postUser = asyncHandler(async (req, res) => {
 
   res.json({
     success: true,
-    user: user,
-    token: jwt.token,
-    expiresIn: jwt.expires,
+    data: {
+      user: user,
+      token: jwt.token,
+      expiresIn: jwt.expires,
+    },
   });
 });
 
@@ -73,9 +75,11 @@ exports.loginUser = asyncHandler(async (req, res) => {
 
     res.json({
       success: true,
-      user: user,
-      token: tokenObject.token,
-      expires: tokenObject.expires,
+      data: {
+        user: user,
+        token: tokenObject.token,
+        expires: tokenObject.expires,
+      },
     });
   } else {
     throw new CustomNotAuthorizedError(
@@ -98,5 +102,5 @@ exports.deleteUser = asyncHandler(async (req, res) => {
       req.originalUrl
     );
 
-  res.json(user);
+  res.status(200).json({ status: "success", data: user });
 });
