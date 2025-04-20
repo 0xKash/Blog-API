@@ -145,6 +145,17 @@ exports.deletePost = async (postId) => {
   }
 };
 
+exports.publishPost = async (postId) => {
+  await prisma.post.update({
+    where: {
+      id: parseInt(postId),
+    },
+    data: {
+      published: true,
+    },
+  });
+};
+
 //
 
 exports.getAllComments = async () => {

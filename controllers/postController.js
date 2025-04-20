@@ -54,6 +54,15 @@ exports.deletePost = asyncHandler(async (req, res) => {
   res.status(200).json({ status: "success", data: post });
 });
 
+exports.publishPost = asyncHandler(async (req, res) => {
+  await prisma.publishPost(req.params.postId);
+
+  res.status(200).json({
+    status: "success",
+    data: `The post with the ID ${req.params.postId} has been published`,
+  });
+});
+
 exports.getPostComments = asyncHandler(async (req, res) => {
   const comments = await prisma.getPostComments(req.params.postId);
 

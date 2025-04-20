@@ -7,6 +7,7 @@ const {
   deletePost,
   createComment,
   getPostComments,
+  publishPost,
 } = require("../controllers/postController");
 const isAuth = require("../lib/authMiddlewares");
 
@@ -19,6 +20,8 @@ postRouter.post("/", isAuth, createPost);
 
 postRouter.get("/:postId", isAuth, getPost);
 postRouter.delete("/:postId", isAuth, deletePost);
+
+postRouter.put("/:postId/publish", isAuth, publishPost);
 
 postRouter.get("/:postId/comments", isAuth, getPostComments);
 postRouter.post("/:postId/comments", isAuth, createComment);
