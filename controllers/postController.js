@@ -51,7 +51,9 @@ exports.deletePost = asyncHandler(async (req, res) => {
       req.originalUrl
     );
 
-  res.status(200).json({ status: "success", data: post });
+  res
+    .status(200)
+    .json({ status: "success", data: `Post ${req.params.postId} deleted` });
 });
 
 exports.publishPost = asyncHandler(async (req, res) => {
@@ -81,8 +83,11 @@ exports.createComment = asyncHandler(async (req, res) => {
   const comment = prisma.createComment(
     req.body.content,
     req.params.postId,
-    req.body.userId /* ONLY FOR TESTING */
+    req.user.id
   );
 
-  res.status(200).json({ status: "success", data: comment });
+  res.status(200).json({
+    status: "success",
+    data: `Comment created succesfuly on post ${req.params.postId}`,
+  });
 });

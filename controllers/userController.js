@@ -1,9 +1,9 @@
+const asyncHandler = require("express-async-handler");
+
 const {
   CustomNotAuthorizedError,
   CustomNotFoundError,
 } = require("../errors/errors");
-const asyncHandler = require("express-async-handler");
-
 const prisma = require("../db/queries");
 const utils = require("../lib/utils");
 
