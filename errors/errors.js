@@ -45,7 +45,7 @@ class CustomBadRequestError extends Error {
   constructor(message, details, suggestion, path) {
     super(message);
     this.status = "error";
-    this.statusCode = 404;
+    this.statusCode = 400;
     this.error = {
       code: "BAD_REQUEST",
       message: message,
