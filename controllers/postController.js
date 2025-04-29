@@ -80,11 +80,7 @@ exports.getPostComments = asyncHandler(async (req, res) => {
 });
 
 exports.createComment = asyncHandler(async (req, res) => {
-  const comment = prisma.createComment(
-    req.body.content,
-    req.params.postId,
-    req.user.id
-  );
+  prisma.createComment(req.body.content, req.params.postId, req.user.id);
 
   res.status(200).json({
     status: "success",
